@@ -1,2 +1,3 @@
-# US-Patent-Phrase-to-Phrase-Matching-model
-Kaggle U.S. Patent Phrase to Phrase Matching -Help Identify Similar Phrases in U.S. Patents!
+# U.S. Patent Phrase to Phrase Matching
+Kaggle U.S. Patent Phrase to Phrase Matching    
+Help Identify Similar Phrases in U.S. Patents!
