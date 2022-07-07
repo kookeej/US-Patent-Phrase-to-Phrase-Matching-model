@@ -6,26 +6,15 @@ Kaggle의  ***U.S. Patent Phrase to Phrase Matching***모델 코드입니다.
 ***
 
 # 1. Preprocessing
-CPC titles과 train 데이터셋을 결합시켰습니다.
+* CPC titles과 train 데이터셋을 결합시켰습니다.
+* 아래와 같이 데이터셋을 재구성했습니다. 
 ```python
-for i in tqdm(range(0, len(codes1), 256)):
-    chunck1 = codes1[i:i+256]     # chunck 단위로 나눔
-    tokenized = tokenizer(
-        chunck1,
-        return_tensors='pt',
-        padding=True,
-        truncation=True,
-        max_length=args.max_len
-    )
+dataset['anchor'][i] + " [SEP] " + dataset['title'][i] 
 ```
-* **미리 데이터로더를 `pickle`을 이용해 직렬화하여 저장**함으로써 실험을 진행할 때마다 데이터 로딩 작업 없이 바로 학습, 추론이 가능하도록 만들었습니다.
-```python
-# save
-pickle.dump(train_dataloader, open('data/train_dataloader.pkl', 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
-
-# loade
-train_dataloader = pickle.load(open('data/train_dataloader.pkl', 'rb'))
-```
+* 실제 데이터셋의 모습은 아래와 같습니다.    
+![image](https://user-images.githubusercontent.com/74829786/177867039-71acb95b-8218-4266-97e8-d02564551a76.png)
+* 여기서 dataset['target']과 dataset['text']를 각각 BERT 모델에 넣어 유사도를 학습시켰습니다.
+* 일반화 성능 향상을 위해 k-fold를 사용하였습니다.
 
 # 2. Model
 * `sentence bert`의 `cross-encoder` 구조를 사용하여 설계했습니다.         
@@ -63,7 +52,5 @@ $ python inference.py\
 
 ***
 # 📑 Results
-**Public score**: 0.85885   
-epoch: 6    
-
-Ensemble, Regularzation, Data agmentation을 통해 성능 향상을 노릴 수 있음
+**Public score**: 0.6548   
+**Private score**: 0.6434
