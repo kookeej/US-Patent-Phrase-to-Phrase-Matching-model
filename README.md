@@ -17,7 +17,7 @@ dataset['anchor'][i] + " [SEP] " + dataset['title'][i]
 * 일반화 성능 향상을 위해 k-fold를 사용하였습니다.
 
 # 2. Model
-* `sentence bert`의 `cross-encoder` 구조를 사용하여 설계했습니다.         
+* `bi-encoder` 구조를 사용하여 설계했습니다.         
 ![](https://raw.githubusercontent.com/UKPLab/sentence-transformers/master/docs/img/BiEncoder.png)
 
 
